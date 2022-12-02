@@ -33,19 +33,14 @@ def copy_swap_collection(obj, prefix, copies_lookup=None):
     """Swap an object's instance_collection with a copy.
        Does not swap the object itself (i.e., you should pass a copied object)."""
     copies_lookup = copies_lookup if copies_lookup is not None else {}
-    print("SCC check object=", obj)
 
     if obj.instance_collection in copies_lookup:
-        print("SCC found ic=", obj.instance_collection.name)
         obj.instance_collection = copies_lookup[obj.instance_collection]
     else:
         ic_copy = obj.instance_collection.copy()
         ic_copy.name = name_copy(prefix, obj.instance_collection.name)
-        print("SCC new ic=", ic_copy.name)
         copies_lookup[obj.instance_collection] = ic_copy
         obj.instance_collection = ic_copy
-
-    print("KS", [c.name for c in copies_lookup.keys() if type(c) is bpy.types.Collection])
 
     return obj
 

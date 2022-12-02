@@ -29,31 +29,23 @@ def deep_copy_materials(objects: Iterable[bpy.types.Object], prefix: str):
         if obj.data not in seen_datas:
             seen_datas.add(obj.data)
             for idx, mat in enumerate(obj.data.materials):
-                print("(data-c) Find", mat, "in", copies_lookup.values())
                 if mat in copies_lookup.values():
                     continue
-                print("(data) Find", mat, "in", copies_lookup)
                 if mat in copies_lookup:
-                    print("Found")
                     obj.data.materials[idx] = copies_lookup[mat]
                     continue
-                print("Not found")
                 material_copy = mat.copy()
                 material_copy.name = name_copy(prefix, mat.name)
                 copies_lookup[mat] = material_copy
                 obj.data.materials[idx] = material_copy
 
         for slot in obj.material_slots:
-            print("(slot-c) Find", slot.material, "in", copies_lookup.values())
             if slot.material in copies_lookup.values():
                 continue
 
-            print("(slot) Find", slot.material, "in", copies_lookup)
             if slot.material in copies_lookup:
-                print("Found")
                 slot.material = copies_lookup[slot.material]
                 continue
-            print("Not found")
             material_copy = slot.material.copy()
             material_copy.name = name_copy(prefix, slot.material.name)
             copies_lookup[slot.material] = material_copy
