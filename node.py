@@ -2,7 +2,7 @@ from typing import Iterable, Callable
 
 import bpy
 
-from material import deep_get_materials
+from .material import deep_get_materials
 from .common import name_copy
 
 

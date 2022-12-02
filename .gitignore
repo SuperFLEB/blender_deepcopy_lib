@@ -1,7 +1,7 @@
 .idea
 
 # Release files
-/untitled_blender_addon_*.zip
+/deepcopy_demo_*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
