@@ -16,8 +16,9 @@ namespaced set of unique Collections, Materials, Node Groups, Objects, and objec
 ## Known quirks/issues:
 * No support for Geometry Nodes, because having to rewrite and track instancing is liable to be a massive pain.
 * Collections are not copied into the scene, they are merely copied in the file.
-* Does not handle physics/simulation. Will probably never support physics or simulation.
+* (Probably) does not handle physics/simulation. Will probably never support physics or simulation.
 * Parents that are not included in the request will not be copied. The copies will be parented to the outside objects.
+* Copying a parent object but not the child object will break the parent-child link. A set of failed parent-child links is returned from the `reconstruct_parentage` function.
 * Original data that is not used elsewhere will be orphaned. Users should run a recursive Clean Up on the file after
   using this.
 * If something from outside the copy job has a parent that gets copied, the parent link will be broken. Furthermore,
