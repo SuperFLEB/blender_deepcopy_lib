@@ -49,6 +49,23 @@ deep_copy_materials(objects, prefix, prefer_existing) | Deep-copy materials
 deep_copy_material_nodegroups_from_objects(objects, prefix, prefer_existing) | Deep-copy material Nodegroups, given a list of Objects
 deep_copy_material_nodegroups(deep_copy_material_nodegroups(materials, prefix, prefer_existing) | Deep-copy material Nodegroups, given a list of Materials
 
+To perform a complete deep copy, including Objects, Object data, Materials, and Material Node Groups, do:
+```python
+from .lib import blender_deepcopy_lib
+
+# An iterable of objects, such as the selected_objects collection...
+objects_to_copy = bpy.context.selected_objects
+# A prefix to prepend to any new copies
+prefix = "copy_of"
+# Whether to use existing materials and nodegroups if they already exist in the file
+use_existing = True
+
+# Perform the copies.
+obj_copies = blender_deepcopy_lib.deep_copy_objects(objects_to_copy, prefix)
+material_copies = blender_deepcopy_lib.deep_copy_materials(obj_copies, prefix, prefer_existing)
+blender_deepcopy_lib.deep_copy_material_nodegroups(material_copies, prefix, prefer_existing)
+```
+
 ## Testing
 
 Tests don't exist yet, but there will probably be some.
