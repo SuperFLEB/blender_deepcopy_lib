@@ -153,19 +153,24 @@ def reconstruct_parentage(log: dict[Object, Object]) -> ReparentResults:
 
     results = ReparentResults()
 
-    # Reparent direct parents
     for orig, copied in {orig: copied for (orig, copied) in log.items() if copied.parent}.items():
         if orig.parent not in log:
             results.fail(copied, copied.parent)
             continue
-        # The matrix_local may get re-set when the reparent happens, so explicitly preserve and restore it
-        matrix_local = copied.matrix_local.copy()
+
+        # Locations may be recalculated during the re-parent process, so save the original values to replace them back.
+        matrix_parent_inverse = orig.matrix_parent_inverse.copy()
+        location = orig.location.copy()
+
         copied.parent = log[orig.parent]
-        copied.matrix_local = matrix_local
+        copied.parent_vertices = list(orig.parent_vertices)
+        copied.parent_type = orig.parent_type
+
+        # Reset the location-related values to undo automatic recalculation after reparenting.
+        copied.location = location
+        copied.matrix_parent_inverse = matrix_parent_inverse
+
         results.succeed(copied, copied.parent)
-
-    # TODO: Reparent vertex parents
-
     return results
 
 
