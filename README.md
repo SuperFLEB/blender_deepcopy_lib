@@ -61,8 +61,8 @@ prefix = "copy_of"
 use_existing = True
 
 # Perform the copies.
-obj_copies = blender_deepcopy_lib.deep_copy_objects(objects_to_copy, prefix)
-material_copies = blender_deepcopy_lib.deep_copy_materials(obj_copies, prefix, prefer_existing)
+object_copies = blender_deepcopy_lib.deep_copy_objects(objects_to_copy, prefix)
+material_copies = blender_deepcopy_lib.deep_copy_materials(object_copies, prefix, prefer_existing)
 blender_deepcopy_lib.deep_copy_material_nodegroups(material_copies, prefix, prefer_existing)
 ```
 
